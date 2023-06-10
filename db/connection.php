@@ -12,7 +12,6 @@
         $price = $_POST["price"];
         $quantity = $_POST["quantity"];
 
-        // Insert the product into the database
         $query = "INSERT INTO product (product_name, description, price, quantity) VALUES ('$product_name', '$description', '$price', '$quantity')";
         if ($db->query($query) === TRUE) {
             echo "Product added successfully.";
