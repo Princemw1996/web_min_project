@@ -22,7 +22,10 @@
           <a class="nav-link" href="add_product_form.php">Add Product</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="search_product.php">Search Product</a>
+          <a class="nav-link" href="edit_product.php">Edit Product</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="delete_product.php">Delete Product</a>
         </li>
       </ul>
     </div>
