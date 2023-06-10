@@ -1,6 +1,7 @@
 <?php
   require_once("./db/connection.php");
   include("./headers/header.php");
+  
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +16,7 @@
 
   <div class="container">
     <h2>Add Product</h2>
-    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="return validateForm()">
+    <form id="adder" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="return validateForm()">
       <div class="form-group">
         <label for="product_name">Product Name:</label>
         <input type="text" class="form-control" id="product_name" name="product_name" required>
@@ -36,7 +37,7 @@
     </form>
   </div>
 
-  <script>
+  <script>     
     function validateForm() {
       var productName = document.getElementById("product_name").value;
       var price = document.getElementById("price").value;
@@ -46,7 +47,7 @@
         alert("Please fill out all required fields.");
         return false;
       }
-
+      document.getElementById('adder').action = 'index.php';
       return true;
     }
   </script>
