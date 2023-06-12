@@ -1,24 +1,38 @@
-<?php 
-    require_once("db.php");
+<?php
+date_default_timezone_set('UTC');
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $db = new mysqli($hostname, $username, $password, $mzuni_db);
-        if ($db->connect_error) {
-            die("Connection failed: " . $db->connect_error);
-        }
+require_once("db.php");
 
-        $product_name = $_POST["product_name"];
-        $description = $_POST["description"];
-        $price = $_POST["price"];
-        $quantity = $_POST["quantity"];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $db = new mysqli($hostname, $username, $password, $mzuni_db);
 
-        $query = "INSERT INTO product (product_name, description, price, quantity) VALUES ('$product_name', '$description', '$price', '$quantity')";
-        if ($db->query($query) === TRUE) {
-            echo "Product added successfully.";
-        } else {
-            echo "Error adding product: " . $db->error;
-        }
-
-        $db->close();
+    if ($db->connect_error) {
+        die("Connection failed: " . $db->connect_error);
     }
+
+    $stmt = $db->prepare("INSERT INTO product (product_name, description, price, quantity) VALUES (?, ?, ?, ?)");
+
+    if (!$stmt) {
+        die("Prepare failed: " . $db->error);
+    }
+
+    $productName = $_POST["product_name"];
+    $description = $_POST["description"];
+    $price = $_POST["price"];
+    $quantity = $_POST["quantity"];
+
+    $stmt->bind_param("ssdi", $productName, $description, $price, $quantity);
+
+    if ($stmt->execute()) {
+        echo "Product added successfully.";
+    } else {
+        echo "Error adding product: " . $stmt->error;
+    }
+
+    $stmt->close();
+    $db->close();
+
+    header("Location: index.php");
+    exit();
+}
 ?>

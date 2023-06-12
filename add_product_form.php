@@ -16,8 +16,8 @@
 
   <div class="container">
     <h2>Add Product</h2>
-    <form id="adder" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="return validateForm()">
-      <div class="form-group">
+    <form id="adder" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" onsubmit="return validateForm()">
+    <div class="form-group">
         <label for="product_name">Product Name:</label>
         <input type="text" class="form-control" id="product_name" name="product_name" required>
       </div>
@@ -33,7 +33,7 @@
         <label for="quantity">Quantity:</label>
         <input type="number" class="form-control" id="quantity" name="quantity" required>
       </div>
-      <button type="submit" class="btn btn-primary">Add</button>
+      <button type="submit" class="btn btn-primary" action=>Add</button>
     </form>
   </div>
 
@@ -47,8 +47,6 @@
         alert("Please fill out all required fields.");
         return false;
       }
-      document.getElementById('adder').action = 'index.php';
-      return true;
     }
   </script>
 
